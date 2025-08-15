@@ -1,0 +1,8 @@
+./logs
+*.log
+./data
+*.json
+config/
+data/
+logs/
+
