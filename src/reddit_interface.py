@@ -56,7 +56,7 @@ class RedditInterface:
 
         self.last_request_time = time.time()
 
-    def get_subreddit_posts(self, subreddit_name: str, limit: int = 50, sort: str = 'new') -> List[Dict[str, Any]]:
+    def get_subreddit_posts(self, subreddit_name: str, limit: int = 200, sort: str = 'new') -> List[Dict[str, Any]]:
         """Récupère les posts d'un subreddit"""
         try:
             self._rate_limit()
@@ -99,7 +99,7 @@ class RedditInterface:
             self.logger.error(f"Erreur lors de la récupération des posts de r/{subreddit_name}: {e}")
             return []
 
-    def get_post_comments(self, post_id: str, limit: int = 50) -> List[Dict[str, Any]]:
+    def get_post_comments(self, post_id: str, limit: int = 200) -> List[Dict[str, Any]]:
         """Récupère les commentaires d'un post"""
         try:
             self._rate_limit()
@@ -276,7 +276,7 @@ if __name__ == "__main__":
         reddit_interface = RedditInterface(config_manager.reddit_config)
         if reddit_interface.authenticate():
             print("Test de récupération des posts...")
-            posts = reddit_interface.get_subreddit_posts('test', limit=5)
+            posts = reddit_interface.get_subreddit_posts('test', limit=200)
             for post in posts:
                 print(f"- {post['title']} (score: {post['score']})")
         else:
